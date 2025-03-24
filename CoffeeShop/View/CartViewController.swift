@@ -30,6 +30,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         CartViewModel.shared.deleteCart()
         cartTableView.reloadData()
+        AlertHelper.showAlert(on: self, title: "Order", message: "Ordered successfully.")
         
     }
     

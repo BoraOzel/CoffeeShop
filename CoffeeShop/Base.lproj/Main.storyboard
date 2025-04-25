@@ -335,76 +335,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coffee Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpE-rW-3Nc">
-                                <rect key="frame" x="72" y="351" width="249" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coffee Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpE-rW-3Nc">
+                                <rect key="frame" x="73" y="359" width="249" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="zu0-Oj-r2o"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ic-AI-NYA">
-                                <rect key="frame" x="39" y="446" width="95" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Small"/>
-                                <connections>
-                                    <action selector="smallButtonClicked:" destination="4sI-cV-QXz" eventType="touchUpInside" id="cCP-nT-EyX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWZ-pB-UJo">
-                                <rect key="frame" x="148" y="446" width="95" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Medium"/>
-                                <connections>
-                                    <action selector="mediumButtonClicked:" destination="4sI-cV-QXz" eventType="touchUpInside" id="pat-Ru-dBG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fk6-oY-YOe">
-                                <rect key="frame" x="258" y="446" width="95" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Large"/>
-                                <connections>
-                                    <action selector="largeButtonClicked:" destination="4sI-cV-QXz" eventType="touchUpInside" id="dtt-fB-qeW"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qV-JJ-uy4">
-                                <rect key="frame" x="39" y="488" width="95" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Nd-1sf">
-                                <rect key="frame" x="148" y="488" width="95" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wsx-Wi-dNl">
-                                <rect key="frame" x="258" y="488" width="95" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SBo-CV-0Fm">
-                                <rect key="frame" x="100" y="150" width="193" height="170"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SBo-CV-0Fm">
+                                <rect key="frame" x="73" y="94" width="249" height="248"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Nd-1sf">
+                                <rect key="frame" x="150" y="547" width="95" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="FV1-1O-fcw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coffee Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVf-Pb-BLu">
+                                <rect key="frame" x="35" y="415" width="322" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="99" id="wgQ-ZE-NBq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pa5-cD-v8H">
+                                <rect key="frame" x="139" y="602" width="116" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add to Cart"/>
+                                <connections>
+                                    <action selector="addToCartClicked:" destination="4sI-cV-QXz" eventType="touchUpInside" id="2Gk-wa-iH8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dPA-u7-yqn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SBo-CV-0Fm" firstAttribute="top" secondItem="dPA-u7-yqn" secondAttribute="top" constant="50" id="19A-mN-wxB"/>
+                            <constraint firstItem="dPA-u7-yqn" firstAttribute="bottom" secondItem="Pa5-cD-v8H" secondAttribute="bottom" constant="166" id="BVT-p1-XQh"/>
+                            <constraint firstItem="RpE-rW-3Nc" firstAttribute="leading" secondItem="dPA-u7-yqn" secondAttribute="leading" constant="73" id="ChL-uf-7dG"/>
+                            <constraint firstItem="RpE-rW-3Nc" firstAttribute="centerX" secondItem="m9Q-Nd-1sf" secondAttribute="centerX" id="GKd-f0-khM"/>
+                            <constraint firstItem="SBo-CV-0Fm" firstAttribute="centerX" secondItem="RpE-rW-3Nc" secondAttribute="centerX" id="H3b-uA-Flz"/>
+                            <constraint firstItem="Pa5-cD-v8H" firstAttribute="leading" secondItem="dPA-u7-yqn" secondAttribute="leading" constant="139" id="IDk-CB-fkU"/>
+                            <constraint firstItem="pVf-Pb-BLu" firstAttribute="top" secondItem="RpE-rW-3Nc" secondAttribute="bottom" constant="8" id="IEd-b2-4fo"/>
+                            <constraint firstItem="SBo-CV-0Fm" firstAttribute="leading" secondItem="dPA-u7-yqn" secondAttribute="leading" constant="73" id="L6B-Bx-gRz"/>
+                            <constraint firstItem="Pa5-cD-v8H" firstAttribute="top" secondItem="m9Q-Nd-1sf" secondAttribute="bottom" constant="13" id="QH0-ej-h4J"/>
+                            <constraint firstItem="dPA-u7-yqn" firstAttribute="trailing" secondItem="pVf-Pb-BLu" secondAttribute="trailing" constant="36" id="UkR-1T-hnd"/>
+                            <constraint firstItem="SBo-CV-0Fm" firstAttribute="centerX" secondItem="T7k-tu-OsU" secondAttribute="centerX" constant="1" id="Xba-2G-8FF"/>
+                            <constraint firstItem="RpE-rW-3Nc" firstAttribute="top" secondItem="SBo-CV-0Fm" secondAttribute="bottom" constant="17" id="YDc-YV-abO"/>
+                            <constraint firstItem="m9Q-Nd-1sf" firstAttribute="centerX" secondItem="Pa5-cD-v8H" secondAttribute="centerX" id="jqb-3g-b6q"/>
+                            <constraint firstItem="m9Q-Nd-1sf" firstAttribute="top" secondItem="pVf-Pb-BLu" secondAttribute="bottom" constant="33" id="nB6-n6-yTN"/>
+                            <constraint firstItem="pVf-Pb-BLu" firstAttribute="leading" secondItem="dPA-u7-yqn" secondAttribute="leading" constant="35" id="qvT-Fn-cHU"/>
+                            <constraint firstItem="m9Q-Nd-1sf" firstAttribute="leading" secondItem="dPA-u7-yqn" secondAttribute="leading" constant="150" id="zVr-lx-QGh"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QRC-LQ-Tms"/>
                     <connections>
+                        <outlet property="coffeeDescriptionLabel" destination="pVf-Pb-BLu" id="102-nr-2Tz"/>
                         <outlet property="coffeeImageView" destination="SBo-CV-0Fm" id="gQr-JO-I9t"/>
                         <outlet property="coffeeNameLabel" destination="RpE-rW-3Nc" id="jfd-zx-TrE"/>
-                        <outlet property="largePriceLabel" destination="Wsx-Wi-dNl" id="5gd-zi-w2g"/>
                         <outlet property="mediumPriceLabel" destination="m9Q-Nd-1sf" id="nP7-pU-bkB"/>
-                        <outlet property="smallPriceLabel" destination="9qV-JJ-uy4" id="49E-cR-YwC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ex5-NA-08y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

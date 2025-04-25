@@ -18,5 +18,13 @@ class MenuCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func loadCellData(model: CoffeeModel){
+        
+        nameLabel.text = model.title
+        coffeeImageView.sd_setImage(with: URL(string: model.image!))
+        priceLabel.text = "Price: \(model.price) $"
+        
+    }
+    
 
 }

@@ -7,10 +7,10 @@ class CartViewModel{
 
     private init() {}
     
-    var cartItems: [Coffee] = []
+    var cartItems: [CoffeeModel] = []
     var totalPrice = Double()
     
-    func addToCart(coffee: Coffee){
+    func addToCart(coffee: CoffeeModel){
         
         cartItems.append(coffee)
         updateTotalPrice()
@@ -21,7 +21,7 @@ class CartViewModel{
         
         totalPrice = 0
         for item in cartItems {
-                totalPrice = totalPrice + item.price
+            totalPrice = totalPrice + item.price
         }
         
         NotificationCenter.default.post(name: NSNotification.Name("updateTotalPrice"), object: nil)

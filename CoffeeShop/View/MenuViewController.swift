@@ -1,37 +1,37 @@
 import UIKit
+import SDWebImage
 
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var selectedCoffee = CoffeeViewModel().selectedCoffee
+    let viewModel = CoffeeViewModel()
+    var selectedCoffee = CoffeeViewModel().coffees
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 87
-        
+
+        loadData()
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CoffeeViewModel().coffees.count
+        return viewModel.coffees.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MenuCell
-        let coffee = CoffeeViewModel().coffees[indexPath.row]
-        cell.coffeeImageView.image = UIImage(named: coffee.imageName)
-        cell.nameLabel.text = coffee.name
-        cell.priceLabel.text = "\(String(coffee.basePrice)) TRY"
+        cell.loadCellData(model: viewModel.coffees[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let coffee = CoffeeViewModel().coffees[indexPath.row]
+        let coffee = viewModel.coffees[indexPath.row]
         selectedCoffee.append(coffee)
         performSegue(withIdentifier: "toCoffeeDetailViewController", sender: nil)
         
@@ -49,6 +49,15 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    func loadData(){
+        
+        viewModel.getCoffees {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+    }
     
-
+    
 }

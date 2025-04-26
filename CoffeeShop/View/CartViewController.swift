@@ -7,6 +7,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func orderButtonClicked(_ sender: Any) {
         
+        AccountViewModel.shared.recentOrders.append(contentsOf: CartViewModel.shared.cartItems)
         CartViewModel.shared.deleteCart()
         cartTableView.reloadData()
         AlertHelper.showAlert(on: self, title: "Order", message: "Ordered successfully.")

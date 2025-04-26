@@ -7,8 +7,8 @@ class CoffeeViewModel{
     
     var chosenCoffee = [CoffeeModel]()
     var selectedCoffee : [CoffeeModel] = []
-    var cartItem = [CoffeeModel]()
-
+   
+  
     
     func getCoffees(completion:@escaping () -> Void){
  

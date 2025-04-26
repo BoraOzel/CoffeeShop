@@ -9,7 +9,6 @@ class CartViewModel{
     
     var cartItems: [CoffeeModel] = []
     var totalPrice = Double()
-    
     func addToCart(coffee: CoffeeModel){
         
         cartItems.append(coffee)

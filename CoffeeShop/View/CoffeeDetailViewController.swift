@@ -8,10 +8,8 @@ class CoffeeDetailViewController: UIViewController {
     @IBOutlet weak var mediumPriceLabel: UILabel!
     @IBOutlet weak var coffeeDescriptionLabel: UILabel!
     
-    
     var chosenCoffee = CoffeeViewModel().chosenCoffee
     var chosenIndex = Int()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +18,12 @@ class CoffeeDetailViewController: UIViewController {
         coffeeNameLabel.text = chosenCoffee[chosenIndex].title
         mediumPriceLabel.text = "\(chosenCoffee[chosenIndex].price) $"
         coffeeDescriptionLabel.text = chosenCoffee[chosenIndex].description
-        
     }
    
    
 
     @IBAction func addToCartClicked(_ sender: Any) {
-        
         CartViewModel.shared.addToCart(coffee: chosenCoffee[chosenIndex])
-        
     }
     
 }

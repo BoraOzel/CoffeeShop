@@ -30,18 +30,14 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let coffee = viewModel.coffees[indexPath.row]
         selectedCoffee.append(coffee)
+        
         performSegue(withIdentifier: "toCoffeeDetailViewController", sender: nil)
-        
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "toCoffeeDetailViewController"{
-            
             let destinationVC = segue.destination as! CoffeeDetailViewController
             destinationVC.chosenCoffee.append(contentsOf: selectedCoffee)
             destinationVC.chosenIndex = selectedCoffee.count - 1
@@ -50,14 +46,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func loadData(){
-        
         viewModel.getCoffees {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-        
     }
-    
     
 }

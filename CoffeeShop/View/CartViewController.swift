@@ -7,10 +7,9 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         cartTableView.delegate = self
         cartTableView.dataSource = self
         cartTableView.rowHeight = 87
@@ -21,20 +20,17 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
         cartTableView.reloadData()
-        
     }
     
     
     @IBAction func orderButtonClicked(_ sender: Any) {
-        
         AccountViewModel.shared.recentOrders.append(contentsOf: CartViewModel.shared.cartItems)
         CartViewModel.shared.deleteCart()
         cartTableView.reloadData()
-        AlertHelper.showAlert(on: self, title: "Order", message: "Ordered successfully.")
         
+        AlertHelper.showAlert(on: self, title: "Order", message: "Ordered successfully.")
     }
     
     
@@ -51,30 +47,21 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.priceLabel.text = "\(cartCoffee.price) $"
         cell.selectedCoffeeLabel.text = cartCoffee.title
         cell.selectedSizeLabel.text = "Medium"
-       
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete{
-            
             CartViewModel.shared.deleteItem(IndexPath: indexPath)
             tableView.deleteRows(at: [indexPath], with: .fade)
             totalLabel.text = "Total: \(CartViewModel.shared.totalPrice) $"
         }
-        
     }
     
     @objc func updateTotalPriceLabel(){
-        
         totalLabel.text = "Total: \(CartViewModel.shared.totalPrice) $"
-        
     }
     
-    
-
-
 }
 
 

@@ -7,6 +7,4 @@ class AccountViewModel{
     private init() {}
     
     var recentOrders : [CoffeeModel] = []
-    
-    
 }

@@ -8,7 +8,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var ordersTableView: UITableView!
     
-    
     let authService = AuthService()
     
     override func viewDidLoad() {
@@ -22,10 +21,8 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
         ordersTableView.reloadData()
-        
     }
     
     
@@ -34,7 +31,6 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecentOrdersCell", for: indexPath) as! RecentOrdersCell
         let recentItem = AccountViewModel.shared.recentOrders.reversed()[indexPath.row]
         cell.recentImageView.sd_setImage(with: URL(string: recentItem.image!))
@@ -49,26 +45,16 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBAction func signOutClicked(_ sender: Any) {
-     
         authService.signOut {result in
-            
             DispatchQueue.main.async {
-                
                 switch result{
                 case .success(_):
                     self.performSegue(withIdentifier: "toViewController", sender: nil)
                 case .failure(let error):
                     AlertHelper.showAlert(on: self, title: "Error!", message: error.localizedDescription)
                 }
-                
             }
-            
         }
-     
     }
     
-    
-    
-    
-
 }

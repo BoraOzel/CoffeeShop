@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 
 class AlertHelper {
-    
     static func showAlert(on viewController: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -10,7 +9,5 @@ class AlertHelper {
         alert.addAction(okButton)
         viewController.present(alert, animated: true, completion: nil)
     }
-
-    
 }
     

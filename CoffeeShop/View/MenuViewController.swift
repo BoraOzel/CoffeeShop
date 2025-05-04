@@ -13,10 +13,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = 87
-
-        loadData()
-        
-    }
+        Task{
+            await viewModel.getCoffees()
+            self.tableView.reloadData()
+        }
+    } 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.coffees.count
@@ -32,7 +33,6 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let coffee = viewModel.coffees[indexPath.row]
         selectedCoffee.append(coffee)
-        
         performSegue(withIdentifier: "toCoffeeDetailViewController", sender: nil)
     }
     
@@ -41,15 +41,6 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             let destinationVC = segue.destination as! CoffeeDetailViewController
             destinationVC.chosenCoffee.append(contentsOf: selectedCoffee)
             destinationVC.chosenIndex = selectedCoffee.count - 1
-        }
-        
-    }
-    
-    func loadData(){
-        viewModel.getCoffees {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
         }
     }
     

@@ -1,21 +1,24 @@
 import Foundation
 import UIKit
 
-class CoffeeViewModel{
+class CoffeeViewModel {
     
     var coffees = [CoffeeModel]()
     var chosenCoffee = [CoffeeModel]()
     var selectedCoffee : [CoffeeModel] = []
     
-    func getCoffees(completion:@escaping () -> Void){
-        let urlString = "https://api.sampleapis.com/coffee/hot"
-        
-        ApiService.fetchData(urlString: urlString) { coffees, error in
-            if let coffees{
-                self.coffees = coffees
-                completion()
+    func getCoffees() async {
+        let url = "https://api.sampleapis.com/coffee/iced"
+        do{
+            let coffees = try await ApiService.shared.fetchData(url: url)
+            if let coffees = coffees {
+                DispatchQueue.main.async {
+                    self.coffees = coffees
+                }
             }
         }
+        catch{
+            print("error")
+        }
     }
-
 }

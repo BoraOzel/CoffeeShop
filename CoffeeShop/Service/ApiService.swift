@@ -1,20 +1,17 @@
 import Foundation
 
 class ApiService{
- 
-    class func fetchData(urlString: String, completion: @escaping ([CoffeeModel]?, String?) -> Void){
-        guard let url = URL(string: urlString) else {return}
+
+    static let shared = ApiService() 
+    private init() {}
+    
+    func fetchData(url: String) async throws -> [CoffeeModel]? {
         
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            if data != nil{
-                let dataModel = try? JSONDecoder().decode([CoffeeModel].self, from: data!)
-                completion(dataModel, nil)
-            }
-            else{
-                completion(nil, "Error!")
-            }
-        }
-        task.resume()
+        guard let url = URL(string: url) else { return nil }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let coffees = try? JSONDecoder().decode([CoffeeModel].self, from: data)
+        return coffees
     }
     
 }

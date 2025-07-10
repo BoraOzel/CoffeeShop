@@ -2,47 +2,56 @@ import UIKit
 import FirebaseAuth
 import SDWebImage
 
-class AccountViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol AccountViewControllerInterface: AnyObject {
+    func reloadCollectionViewOnMainThread()
+    func deleteFavoritedItem(at indexPath: IndexPath)
+}
+
+class AccountViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var emailLabel: UILabel!
-    
-    @IBOutlet weak var ordersTableView: UITableView!
+    @IBOutlet weak var accountCollectionView: UICollectionView!
     
     let authService = AuthService()
     
+    var viewModel : AccountViewModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        emailLabel.text = Auth.auth().currentUser?.email
+        accountCollectionView.delegate = self
+        accountCollectionView.dataSource = self
+        viewModel.view = self
         
-        ordersTableView.delegate = self
-        ordersTableView.dataSource = self
-        ordersTableView.rowHeight = 87
+        if let layout = accountCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .vertical
+        }
+        emailLabel.text = Auth.auth().currentUser?.email
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        ordersTableView.reloadData()
+        viewModel.getFavourites()
     }
     
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AccountViewModel.shared.recentOrders.count
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.favCoffees.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecentOrdersCell", for: indexPath) as! RecentOrdersCell
-        let recentItem = AccountViewModel.shared.recentOrders.reversed()[indexPath.row]
-        cell.recentImageView.sd_setImage(with: URL(string: recentItem.image!))
-        cell.recentCoffeeSize.text = "Medium"
-        cell.recentCoffeeLabel.text = recentItem.title
-        cell.recentCoffeePrice.text = String(recentItem.price)
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteCell", for: indexPath) as! FavCollectionViewCell
+        cell.delegate = self
+        cell.loadCellData(model: viewModel.favCoffees[indexPath.item])
         return cell
     }
     
-
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding: CGFloat = 16
+        let itemsPerRow: CGFloat = 2
+        
+        let totalPadding = (itemsPerRow + 1) * padding
+        let itemWidth = (collectionView.bounds.width - totalPadding) / itemsPerRow
+        
+        return CGSize(width: itemWidth, height: itemWidth * 1.4)
+    }
     
     @IBAction func signOutClicked(_ sender: Any) {
         authService.signOut {result in
@@ -58,3 +67,31 @@ class AccountViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
 }
+
+extension AccountViewController: AccountViewControllerInterface {
+    func reloadCollectionViewOnMainThread() {
+        DispatchQueue.main.async {
+            self.accountCollectionView.reloadData()
+        }
+    }
+    
+    func deleteFavoritedItem(at indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            self.accountCollectionView.deleteItems(at: [indexPath])
+        }
+    }
+}
+
+extension AccountViewController: FavouriteCellDelegate {
+    func cellRequestDelete(cell: FavCollectionViewCell) {
+        guard let indexPath = accountCollectionView.indexPath(for: cell) else { return }
+        self.viewModel.deleteCell(indexPath: indexPath)
+    }
+}
+
+extension AccountViewController: AddToFavouriteDelegate {
+    func reloadCoffeeData() {
+        self.accountCollectionView.reloadData()
+    }
+}
+

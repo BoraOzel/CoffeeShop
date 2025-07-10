@@ -3,11 +3,7 @@ import UIKit
 
 class CartViewModel{
 
-    static let shared = CartViewModel()
-
-    private init() {}
-    
-    var cartItems: [CoffeeModel] = []
+    var cartItems = [CoffeeModel]()
     var totalPrice = Double()
     
     func addToCart(coffee: CoffeeModel){

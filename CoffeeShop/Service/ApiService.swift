@@ -13,5 +13,5 @@ class ApiService{
         let coffees = try? JSONDecoder().decode([CoffeeModel].self, from: data)
         return coffees
     }
-    
+
 }

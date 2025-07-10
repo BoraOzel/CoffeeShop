@@ -1,15 +1,14 @@
 import Foundation
-import UIKit
 
-struct Coffees : Codable{
+struct Coffees : Codable, Equatable {
     let coffees : [CoffeeModel]
 }
 
 
-struct CoffeeModel : Codable {
+struct CoffeeModel : Codable, Equatable {
     let id : Int?
     let title : String?
-    let price : Double
+    let price = 5.0
     let description : String?
     let image : String?
 }

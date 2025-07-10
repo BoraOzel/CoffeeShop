@@ -5,8 +5,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet weak var tableView: UITableView!
     
-    let viewModel = CoffeeViewModel()
-    var selectedCoffee = CoffeeViewModel().coffees
+    var viewModel : MenuViewModel!
+    var cartViewModel : CartViewModel!
+    var accountViewModel : AccountViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,10 +15,10 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         tableView.rowHeight = 87
         Task{
-            await viewModel.getCoffees()
+            await viewModel?.getCoffees()
             self.tableView.reloadData()
         }
-    } 
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.coffees.count
@@ -32,15 +33,17 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let coffee = viewModel.coffees[indexPath.row]
-        selectedCoffee.append(coffee)
+        viewModel?.selectedCoffee.append(coffee)
         performSegue(withIdentifier: "toCoffeeDetailViewController", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCoffeeDetailViewController"{
             let destinationVC = segue.destination as! CoffeeDetailViewController
-            destinationVC.chosenCoffee.append(contentsOf: selectedCoffee)
-            destinationVC.chosenIndex = selectedCoffee.count - 1
+            destinationVC.viewModel = self.viewModel
+            destinationVC.accountViewModel = self.accountViewModel
+            destinationVC.cartViewModel = self.cartViewModel
+            destinationVC.selectedIndex = viewModel.selectedCoffee.count - 1
         }
     }
     

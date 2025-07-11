@@ -1,6 +1,8 @@
 import Foundation
 
 protocol CartViewModelInterface {
+    var view: CartViewControllerInterface? { get set }
+    func viewDidLoad()
     func addToCart(coffee: CoffeeModel)
     func updateTotalPrice()
     func deleteItem(IndexPath: IndexPath)
@@ -8,11 +10,17 @@ protocol CartViewModelInterface {
 }
 
 class CartViewModel{
+    var view: CartViewControllerInterface?
     var cartItems = [CoffeeModel]()
     var totalPrice = Double()
 }
 
 extension CartViewModel: CartViewModelInterface {
+    
+    func viewDidLoad() {
+        view?.configureVC()
+    }
+    
     func addToCart(coffee: CoffeeModel){
         cartItems.append(coffee)
         updateTotalPrice()

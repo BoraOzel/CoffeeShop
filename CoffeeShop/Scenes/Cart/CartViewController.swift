@@ -1,5 +1,10 @@
 import UIKit
 import SDWebImage
+
+protocol CartViewControllerInterface {
+    func configureVC()
+}
+
 class CartViewController: UIViewController {
 
     @IBOutlet weak var cartTableView: UITableView!
@@ -9,11 +14,8 @@ class CartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cartTableView.delegate = self
-        cartTableView.dataSource = self
-        cartTableView.rowHeight = 87
-        totalLabel.text = "Total: \(viewModel.totalPrice) $"
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTotalPriceLabel), name: NSNotification.Name("updateTotalPrice"), object: nil)
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,10 +29,7 @@ class CartViewController: UIViewController {
         viewModel.deleteCart()
         cartTableView.reloadData()
     }
-    
-    @objc func updateTotalPriceLabel(){
-        totalLabel.text = "Total: \(viewModel.totalPrice) $"
-    }
+
 }
 
 extension CartViewController: UITableViewDelegate, UITableViewDataSource {
@@ -50,5 +49,19 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
             totalLabel.text = "Total: \(viewModel.totalPrice) $"
         }
+    }
+}
+
+extension CartViewController: CartViewControllerInterface {
+    func configureVC() {
+        cartTableView.delegate = self
+        cartTableView.dataSource = self
+        cartTableView.rowHeight = 87
+        totalLabel.text = "Total: \(viewModel.totalPrice) $"
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTotalPriceLabel), name: NSNotification.Name("updateTotalPrice"), object: nil)
+    }
+    
+    @objc func updateTotalPriceLabel(){
+        totalLabel.text = "Total: \(viewModel.totalPrice) $"
     }
 }

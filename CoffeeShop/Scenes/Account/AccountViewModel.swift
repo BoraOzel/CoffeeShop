@@ -1,10 +1,28 @@
 import Foundation
 import UIKit
 
+protocol AccountViewModelInterface {
+    var view: AccountViewControllerInterface? { get set }
+    func viewDidLoad()
+    func viewWillAppear()
+    func getFavourites()
+    func handleFavourites(with favourites: [CoffeeModel])
+    func deleteCell(indexPath: IndexPath)
+}
+
 class AccountViewModel{
-    
     var favCoffees = [CoffeeModel]()
     var view: AccountViewControllerInterface?
+}
+
+extension AccountViewModel: AccountViewModelInterface {
+    func viewDidLoad() {
+        view?.configureVC()
+    }
+    
+    func viewWillAppear() {
+        getFavourites()
+    }
     
     func getFavourites() {
         UserDefaultsService.getFavourites { [weak self] result in
@@ -36,7 +54,7 @@ class AccountViewModel{
                 view?.deleteFavoritedItem(at: indexPath)
                 
                 if self.favCoffees.isEmpty {
-                    AlertHelper.showAlert(on: self.view as! UIViewController, title: "Error!", message: "You need to favourite an item first to remove it.")
+                    AlertHelper.showAlert(on: self.view as! UIViewController, title: "No Favourites!", message: "You can favourite coffees on the coffee details screen.")
                 }
                 return
             }

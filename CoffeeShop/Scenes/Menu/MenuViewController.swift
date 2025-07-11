@@ -1,7 +1,7 @@
 import UIKit
 import SDWebImage
 
-class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MenuViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,11 +19,13 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.tableView.reloadData()
         }
     }
+}
+
+extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.coffees.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MenuCell
@@ -40,11 +42,13 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCoffeeDetailViewController"{
             let destinationVC = segue.destination as! CoffeeDetailViewController
-            destinationVC.viewModel = self.viewModel
+            destinationVC.menuViewModel = self.viewModel
             destinationVC.accountViewModel = self.accountViewModel
             destinationVC.cartViewModel = self.cartViewModel
             destinationVC.selectedIndex = viewModel.selectedCoffee.count - 1
         }
     }
-    
 }
+
+
+

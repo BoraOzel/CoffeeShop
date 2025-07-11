@@ -1,11 +1,18 @@
 import Foundation
-import UIKit
+
+protocol CartViewModelInterface {
+    func addToCart(coffee: CoffeeModel)
+    func updateTotalPrice()
+    func deleteItem(IndexPath: IndexPath)
+    func deleteCart()
+}
 
 class CartViewModel{
-
     var cartItems = [CoffeeModel]()
     var totalPrice = Double()
-    
+}
+
+extension CartViewModel: CartViewModelInterface {
     func addToCart(coffee: CoffeeModel){
         cartItems.append(coffee)
         updateTotalPrice()
@@ -31,5 +38,4 @@ class CartViewModel{
         cartItems.removeAll()
         updateTotalPrice()
     }
-    
 }

@@ -2,10 +2,9 @@ import Foundation
 import UIKit
 
 class MenuViewModel {
-    
     var coffees = [CoffeeModel]()
     var selectedCoffee = [CoffeeModel]()
-    
+
     func getCoffees() async {
         let url = "https://api.sampleapis.com/coffee/hot"
         do{
@@ -20,4 +19,7 @@ class MenuViewModel {
             print("error")
         }
     }
+    
 }
+
+

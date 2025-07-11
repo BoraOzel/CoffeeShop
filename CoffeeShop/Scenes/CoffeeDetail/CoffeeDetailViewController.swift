@@ -14,35 +14,35 @@ class CoffeeDetailViewController: UIViewController {
     @IBOutlet weak var favButton: UIButton!
     
     var selectedIndex = Int()
-    var viewModel: MenuViewModel!
+    var menuViewModel: MenuViewModel!
     var accountViewModel: AccountViewModel!
     var cartViewModel: CartViewModel!
     var coffee: CoffeeModel!
-    weak var delegate: AddToFavouriteDelegate?
+    weak var favDelegate: AddToFavouriteDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        coffeeImageView.sd_setImage(with: URL(string: viewModel.selectedCoffee[selectedIndex].image!))
-        coffeeNameLabel.text = viewModel.selectedCoffee[selectedIndex].title
-        mediumPriceLabel.text = "\(viewModel.selectedCoffee[selectedIndex].price) $"
-        coffeeDescriptionLabel.text = viewModel.selectedCoffee[selectedIndex].description
+        
+        coffeeImageView.sd_setImage(with: URL(string: menuViewModel.selectedCoffee[selectedIndex].image!))
+        coffeeNameLabel.text = menuViewModel.selectedCoffee[selectedIndex].title
+        mediumPriceLabel.text = "\(menuViewModel.selectedCoffee[selectedIndex].price) $"
+        coffeeDescriptionLabel.text = menuViewModel.selectedCoffee[selectedIndex].description
         
     }
     
     @IBAction func favButtonClicked(_ sender: Any) {
         updateFav()
-        delegate?.reloadCoffeeData()
+        favDelegate?.reloadCoffeeData()
     }
     
     
     @IBAction func addToCartClicked(_ sender: Any) {
-        cartViewModel.addToCart(coffee: viewModel.selectedCoffee[selectedIndex])
+        cartViewModel.addToCart(coffee: menuViewModel.selectedCoffee[selectedIndex])
         AlertHelper.showAlert(on: self, title: "Cart", message: "Item added to cart.")
     }
     
-    func updateFav() {
-        coffee = viewModel.selectedCoffee[selectedIndex]
+   func updateFav() {
+        coffee = menuViewModel.selectedCoffee[selectedIndex]
         
         UserDefaultsService.updateWith(favourite: coffee, actionType: .add) { [weak self] error in
             guard let self = self else { return }
@@ -57,6 +57,3 @@ class CoffeeDetailViewController: UIViewController {
         }
     }
 }
-
-    
-

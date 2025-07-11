@@ -3,34 +3,47 @@ import FirebaseAuth
 import SDWebImage
 
 protocol AccountViewControllerInterface: AnyObject {
+    func configureVC()
     func reloadCollectionViewOnMainThread()
     func deleteFavoritedItem(at indexPath: IndexPath)
 }
 
-class AccountViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AccountViewController: UIViewController {
     
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var accountCollectionView: UICollectionView!
     
     let authService = AuthService()
-    
-    var viewModel : AccountViewModel!
+
+    var viewModel: AccountViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        accountCollectionView.delegate = self
-        accountCollectionView.dataSource = self
+
         viewModel.view = self
-        
-        if let layout = accountCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .vertical
-        }
-        emailLabel.text = Auth.auth().currentUser?.email
+        viewModel.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.getFavourites()
+        viewModel.viewWillAppear()
     }
+    
+    
+    @IBAction func signOutClicked(_ sender: Any) {
+        authService.signOut {result in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(_):
+                    self.performSegue(withIdentifier: "toViewController", sender: nil)
+                case .failure(let error):
+                    AlertHelper.showAlert(on: self, title: "Error!", message: error.localizedDescription)
+                }
+            }
+        }
+    }
+}
+
+extension AccountViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.favCoffees.count
@@ -53,22 +66,15 @@ class AccountViewController: UIViewController, UICollectionViewDelegate, UIColle
         return CGSize(width: itemWidth, height: itemWidth * 1.4)
     }
     
-    @IBAction func signOutClicked(_ sender: Any) {
-        authService.signOut {result in
-            DispatchQueue.main.async {
-                switch result{
-                case .success(_):
-                    self.performSegue(withIdentifier: "toViewController", sender: nil)
-                case .failure(let error):
-                    AlertHelper.showAlert(on: self, title: "Error!", message: error.localizedDescription)
-                }
-            }
-        }
-    }
-    
 }
 
 extension AccountViewController: AccountViewControllerInterface {
+    func configureVC() {
+        accountCollectionView.delegate = self
+        accountCollectionView.dataSource = self
+        emailLabel.text = Auth.auth().currentUser?.email
+    }
+    
     func reloadCollectionViewOnMainThread() {
         DispatchQueue.main.async {
             self.accountCollectionView.reloadData()
